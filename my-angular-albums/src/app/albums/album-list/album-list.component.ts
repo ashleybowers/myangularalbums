@@ -14,7 +14,11 @@ export class AlbumListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.albums = ALBUMS;
+    this.albums = this.albums = ALBUMS;
+  }
+
+  parentFunctionHandler(album) {
+    alert('Album ' + album.album_name + ' was sent from the album card component');
   }
 
 }
