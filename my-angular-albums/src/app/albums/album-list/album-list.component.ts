@@ -1,24 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Album } from '../album.model';
-import { ALBUMS } from '../album.data';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Album } from "../album.model";
 
 @Component({
-  selector: 'app-album-list',
-  templateUrl: './album-list.component.html',
-  styleUrls: ['./album-list.component.css']
+  selector: "app-album-card",
+  templateUrl: "./album-card.component.html",
+  styleUrls: ["./album-card.component.css"]
 })
-export class AlbumListComponent implements OnInit {
-  albums: Album[];
+export class AlbumCardComponent implements OnInit {
+  @Input()
+  album: Album;
+
+  @Output()
+  albumClicked: EventEmitter<Album> = new EventEmitter<Album>();
+
+  new_price: number;
 
   constructor() { }
 
+  showAlbum() {
+    this.albumClicked.emit(this.album);
+  }
+
   ngOnInit() {
-    this.albums = this.albums = ALBUMS;
+    if (this.album.on_sale) {
+      this.new_price = this.album.price - (this.album.price * .1);
+    }
   }
-
-  parentFunctionHandler(album) {
-    alert('Album ' + album.album_name + ' was sent from the album card component');
-  }
-
 }
