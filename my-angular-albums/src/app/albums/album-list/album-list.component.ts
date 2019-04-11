@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Album } from "../album.model";
+import { AlbumService } from "../shared/album.service";
 
 @Component({
   selector: "app-album-card",
@@ -7,23 +8,17 @@ import { Album } from "../album.model";
   styleUrls: ["./album-card.component.css"]
 })
 export class AlbumCardComponent implements OnInit {
+
+  constructor(private albumService: AlbumService) { }
+
   @Input()
   album: Album;
 
-  @Output()
-  albumClicked: EventEmitter<Album> = new EventEmitter<Album>();
-
-  new_price: number;
-
-  constructor() { }
-
-  showAlbum() {
-    this.albumClicked.emit(this.album);
+  getAlbums() {
+    this.album = this.albumService.getAlbums();
   }
 
   ngOnInit() {
-    if (this.album.on_sale) {
-      this.new_price = this.album.price - (this.album.price * .1);
-    }
+    this.getAlbums();
   }
 }
