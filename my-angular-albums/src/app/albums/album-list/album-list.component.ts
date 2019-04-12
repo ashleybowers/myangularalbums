@@ -1,24 +1,16 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Album } from "../album.model";
 import { AlbumService } from "../shared/album.service";
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: "app-album-card",
-  templateUrl: "./album-card.component.html",
-  styleUrls: ["./album-card.component.css"]
+  selector: "app-album-list",
+  templateUrl: "./album-list.component.html",
+  styleUrls: ["./album-list.component.css"]
 })
-export class AlbumCardComponent implements OnInit {
+export class AlbumListComponent {
 
   constructor(private albumService: AlbumService) { }
 
-  @Input()
-  album: Album;
-
-  getAlbums() {
-    this.album = this.albumService.getAlbums();
-  }
-
-  ngOnInit() {
-    this.getAlbums();
-  }
+  albums: Observable<Album[]>;
 }
